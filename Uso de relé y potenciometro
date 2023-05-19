@@ -1,0 +1,20 @@
+// Definición de pines
+const int relay = 12;
+const int poten = A0;
+int potenValue = 0;// Variables globales
+void setup() {
+  pinMode(relay, OUTPUT); // Configurar el pin del relé como salida
+  Serial.begin(9600);// Iniciar comunicación serie
+}
+void loop() {
+  potenValue = analogRead(poten);// Leer el valor del potenciómetro
+  int mappedValue = map(potenValue, 0, 1023, 0, 255); // Mapear el valor del potenciómetro al rango de 0 a 255
+  Serial.println(mappedValue); // Imprimir el valor mapeado por el monitor serie (opcional)
+  // Encender o apagar el relé según el valor del potenciómetro
+  if (mappedValue > 0) { 
+    digitalWrite(relay, HIGH);
+  }else{
+    digitalWrite(relay, LOW);
+  } 
+  delay(2000); //pausa para estabilidad
+}
